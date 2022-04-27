@@ -18,7 +18,6 @@ namespace back.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            //await _toDoService.GetNewTasks()
             return Ok(await _toDoService.GetNewTasks()); 
         }
 
@@ -34,10 +33,10 @@ namespace back.Controllers
             return CreatedAtAction(nameof(Post),item);
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(Guid id)
+        public async Task<IActionResult> Put(Guid id, [FromForm] ToDoItemViewModel model)
         {
-            await _toDoService.UpdateStatus(id);
-            return Ok(await _toDoService.GetNewTask(id));
+            await _toDoService.UpdateTask(id,model);
+            return Ok();
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)

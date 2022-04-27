@@ -56,11 +56,13 @@ namespace back.Services
                 FileNames = task.Files.Select(x => x.Name).ToList()
             };
         }
-        public async Task UpdateStatus (Guid id)
+        public async Task UpdateTask (Guid id, ToDoItemViewModel model)
         {
             var item =  await dbContex.ToDoItems.FindAsync(id);
             if(item is not null)
             item.IsDone = !item.IsDone;
+            item.Task = model.Task;
+            item.MyDateTime = model.MyDateTime;
             dbContex.Update(item);
             dbContex.SaveChanges();
         }
